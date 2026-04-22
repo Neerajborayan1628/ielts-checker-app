@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>IELTS Free Checker</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="bg-glow bg-glow-one"></div>
+    <div class="bg-glow bg-glow-two"></div>
+    <main class="container">
+      <header class="hero">
+        <div class="hero-top-row">
+          <div class="hero-badge">AI Writing Assistant</div>
+          <button id="themeToggle" class="theme-toggle" type="button">
+            Dark Mode
+          </button>
+        </div>
+        <h1>IELTS Free Checker</h1>
+        <p class="subtitle">
+          Check grammar instantly and get a quick IELTS band estimate with practical
+          writing feedback.
+        </p>
+      </header>
+
+      <section class="input-card">
+        <div class="card-heading-row">
+          <h2>Essay Review</h2>
+          <span class="chip">100% Free</span>
+        </div>
+        <label for="essayInput">Paste your IELTS essay</label>
+        <textarea
+          id="essayInput"
+          placeholder="Write or paste your IELTS Task 2 answer here..."
+        ></textarea>
+
+        <div class="stats-row">
+          <span>Words: <strong id="wordCount">0</strong></span>
+          <span>Characters: <strong id="charCount">0</strong></span>
+        </div>
+
+        <div class="button-row">
+          <button id="checkBtn">Check My Essay</button>
+          <button id="clearBtn" class="secondary">Clear Text</button>
+        </div>
+
+        <div id="loading" class="loading hidden" aria-live="polite">
+          <span class="spinner"></span>
+          Checking your essay...
+        </div>
+      </section>
+
+      <section id="results" class="results hidden">
+        <div class="band-card">
+          <p class="eyebrow">Estimated IELTS Performance</p>
+          <h2>Band Score: <span id="bandScore">-</span></h2>
+          <p id="bandExplanation"></p>
+          <p id="vocabCapBadge" class="cap-badge hidden">
+            <span class="cap-icon" aria-hidden="true">🧠</span>
+            Vocabulary Cap Active: Limited use of advanced vocabulary restricts higher
+            band score.
+          </p>
+          <p id="grammarCapBadge" class="cap-badge cap-badge-grammar hidden">
+            <span class="cap-icon" aria-hidden="true">⚠</span>
+            Grammar Cap Active: Score limited due to grammar mistakes despite good
+            vocabulary.
+          </p>
+          <p id="qualityCapBadge" class="cap-badge cap-badge-quality hidden">
+            <span class="cap-icon" aria-hidden="true">📉</span>
+            Quality Cap Active: Essay contains basic grammar and limited idea
+            development, which lowers the band score.
+          </p>
+        </div>
+
+        <article class="panel">
+          <h3>Band Breakdown</h3>
+          <p class="help-text">Visual category scores based on IELTS-style rule analysis.</p>
+          <div class="breakdown-grid">
+            <div class="breakdown-card">
+              <div class="breakdown-head">
+                <h4>Grammar</h4>
+                <strong id="scoreGrammar">0</strong>
+              </div>
+              <div class="progress-track"><div id="barGrammar" class="progress-fill"></div></div>
+              <p id="breakdownGrammar">-</p>
+            </div>
+            <div class="breakdown-card">
+              <div class="breakdown-head">
+                <h4>Vocabulary</h4>
+                <strong id="scoreVocabulary">0</strong>
+              </div>
+              <div class="progress-track"><div id="barVocabulary" class="progress-fill"></div></div>
+              <p id="breakdownVocabulary">-</p>
+            </div>
+            <div class="breakdown-card">
+              <div class="breakdown-head">
+                <h4>Coherence</h4>
+                <strong id="scoreCoherence">0</strong>
+              </div>
+              <div class="progress-track"><div id="barCoherence" class="progress-fill"></div></div>
+              <p id="breakdownCoherence">-</p>
+            </div>
+            <div class="breakdown-card">
+              <div class="breakdown-head">
+                <h4>Task Response</h4>
+                <strong id="scoreTask">0</strong>
+              </div>
+              <div class="progress-track"><div id="barTask" class="progress-fill"></div></div>
+              <p id="breakdownTask">-</p>
+            </div>
+          </div>
+        </article>
+
+        <article class="panel">
+          <h3>IELTS Feedback</h3>
+          <p class="help-text">Rule-based examiner-style feedback for each criterion.</p>
+          <div class="feedback-grid">
+            <div class="feedback-card">
+              <h4>Task Response</h4>
+              <p id="feedbackTask">-</p>
+            </div>
+            <div class="feedback-card">
+              <h4>Coherence &amp; Cohesion</h4>
+              <p id="feedbackCoherence">-</p>
+            </div>
+            <div class="feedback-card">
+              <h4>Vocabulary</h4>
+              <p id="feedbackLexical">-</p>
+            </div>
+            <div class="feedback-card">
+              <h4>Grammar</h4>
+              <p id="feedbackGrammar">-</p>
+            </div>
+          </div>
+          <div class="metrics-strip">
+            <div class="metric-item">
+              <span class="metric-label">Words</span>
+              <strong id="metricWords">0</strong>
+            </div>
+            <div class="metric-item">
+              <span class="metric-label">Sentences</span>
+              <strong id="metricSentences">0</strong>
+            </div>
+            <div class="metric-item">
+              <span class="metric-label">Paragraphs</span>
+              <strong id="metricParagraphs">0</strong>
+            </div>
+            <div class="metric-item">
+              <span class="metric-label">Connectors</span>
+              <strong id="metricConnectors">0</strong>
+            </div>
+            <div class="metric-item">
+              <span class="metric-label">Repeated Words</span>
+              <strong id="metricRepeatedWords">0</strong>
+            </div>
+          </div>
+        </article>
+
+        <div class="result-grid">
+          <article class="panel">
+            <h3>Grammar Mistakes</h3>
+            <ul id="mistakeList"></ul>
+          </article>
+
+          <article class="panel">
+            <h3>Improvement Tips</h3>
+            <ul id="tipsList"></ul>
+          </article>
+        </div>
+
+        <article class="panel">
+          <h3>Highlighted Text</h3>
+          <p class="help-text">Incorrect words are marked in red.</p>
+          <div id="highlightedText" class="highlight-box"></div>
+        </article>
+
+        <article class="panel">
+          <h3>Suggested Corrected Text</h3>
+          <textarea id="correctedText" readonly></textarea>
+        </article>
+      </section>
+    </main>
+
+    <script src="script.js"></script>
+  </body>
+</html>
